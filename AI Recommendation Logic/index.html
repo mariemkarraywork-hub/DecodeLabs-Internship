@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Recommendation Logic Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-logo">
+        <span class="logo-icon">🤖</span>
+        <div>
+          <h1>AI Recommendation Logic</h1>
+          <p class="subtitle">Interactive Pattern Matching &amp; Similarity Scoring Engine</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle Theme">
+          <span class="toggle-sun">☀️ Light Mode</span>
+          <span class="toggle-moon">🌙 Dark Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="tabs-container">
+      <button class="tab-btn active" data-domain="movies">🎬 Movies &amp; TV</button>
+      <button class="tab-btn" data-domain="books">📚 Books &amp; Literature</button>
+      <button class="tab-btn" data-domain="games">🎮 Video Games</button>
+      <button class="tab-btn" data-domain="travel">✈️ Travel &amp; Adventure</button>
+    </div>
+
+    <main class="main-layout">
+      <section class="control-panel">
+        <div class="panel-section">
+          <h2>1. Select Your Interests</h2>
+          <p class="section-desc">Toggle tags to define your key preferences. The Jaccard similarity score will calculate matches based on these.</p>
+          <div id="tags-container" class="tags-grid"></div>
+        </div>
+
+        <div class="panel-section">
+          <h2>2. Fine-tune Attributes</h2>
+          <p class="section-desc">Adjust sliders to define your ideal profile. Weighted distance vectors will measure the similarity.</p>
+          <div id="sliders-container" class="sliders-list"></div>
+        </div>
+
+        <div class="panel-section">
+          <h2>3. Algorithm Settings</h2>
+          <p class="section-desc">Tune the weights assigned to tags vs numeric attributes for recommendation blending.</p>
+          <div class="weight-control">
+            <div class="weight-label">
+              <span>Tag Similarity Weight (Jaccard)</span>
+              <span id="jaccard-weight-val">50%</span>
+            </div>
+            <input type="range" id="jaccard-weight" min="0" max="100" value="50" class="custom-slider">
+          </div>
+          <div class="weight-control">
+            <div class="weight-label">
+              <span>Attribute Alignment Weight (Euclidean)</span>
+              <span id="euclidean-weight-val">50%</span>
+            </div>
+            <input type="range" id="euclidean-weight" min="0" max="100" value="50" class="custom-slider">
+          </div>
+        </div>
+      </section>
+
+      <section class="results-panel">
+        <div class="results-header">
+          <div>
+            <h2>Top Recommendations</h2>
+            <p class="section-desc" id="recommendation-count">Showing matches sorted by overall similarity score.</p>
+          </div>
+          <div class="sort-select-wrapper">
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select" class="custom-select">
+              <option value="overall">Overall Match %</option>
+              <option value="jaccard">Tag Similarity</option>
+              <option value="distance">Attribute Match</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="recommendations-grid" class="cards-grid"></div>
+
+        <div class="sandbox-panel panel-section">
+          <div class="sandbox-header" id="sandbox-toggle">
+            <h3>🧪 AI Sandbox: Add Custom Item</h3>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div id="sandbox-form-container" class="sandbox-content collapsed">
+            <p class="section-desc">Input a new item to test the recommendation engine's ability to classify and recommend it dynamically.</p>
+            <form id="custom-item-form">
+              <div class="form-group">
+                <label for="item-title">Title / Name</label>
+                <input type="text" id="item-title" placeholder="e.g., Inception" required class="custom-input">
+              </div>
+              <div class="form-group">
+                <label for="item-desc">Short Description</label>
+                <textarea id="item-desc" placeholder="Brief details about this item..." required class="custom-input" rows="2"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="item-tags">Interest Tags (comma separated)</label>
+                <input type="text" id="item-tags" placeholder="e.g., Sci-Fi, Mind-bending, Action" class="custom-input">
+              </div>
+              <div class="form-sliders-grid" id="sandbox-sliders"></div>
+              <button type="submit" class="submit-btn">Add to Database &amp; Match</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
